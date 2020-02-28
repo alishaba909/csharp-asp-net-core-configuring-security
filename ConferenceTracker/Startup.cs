@@ -40,7 +40,14 @@ namespace ConferenceTracker
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (!env.IsDevelopment())
+            {
+                app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
+            }
+            else
+            {
+                app.UseDeveloperExceptionPage();
+            }
 
             using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             using (var context = scope.ServiceProvider.GetService<ApplicationDbContext>())
